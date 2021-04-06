@@ -19,6 +19,9 @@ public class Principal {
 		
 		if (r3 != null) {
 			
+			System.out.println("Se suma: " + r1.numerador + "/" + r1.denomidaor);
+			System.out.println("Con: " + r2.numerador + "/" + r2.denomidaor);
+			
 			System.out.println("El resultado de la suma es: " + r3.numerador + "/" + r3.denomidaor);
 			
 		} else {
