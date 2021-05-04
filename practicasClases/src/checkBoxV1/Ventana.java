@@ -11,6 +11,9 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,7 +25,26 @@ import javax.swing.text.html.HTML;
  *
  * @author Administrador
  */
-public class Ventana extends JFrame{
+public class Ventana extends JFrame implements ActionListener{
+    
+    JPanel panelNorte;
+    JPanel panelCentro;
+    JPanel panelSur;
+    
+    JPanel panelBinario;
+    JPanel panelOctal;
+    JPanel panelHexadecimal;
+    
+    JLabel etiquetaDecimal;
+    
+    JTextField decimal;
+    JTextField binario;
+    JTextField octal;
+    JTextField hexa;
+    
+    JCheckBox checkBinario;
+    JCheckBox checkOctal;
+    JCheckBox checkHexa;
 
     public Ventana(String string) throws HeadlessException {
         super(string);
@@ -30,57 +52,50 @@ public class Ventana extends JFrame{
         setSize(700, 600);
         setLocationRelativeTo(null);
         
-        JPanel panelNorte = new JPanel();
-        JPanel panelCentro = new JPanel();
-        JPanel panelSur = new JPanel();
+        panelNorte = new JPanel();
+        panelCentro = new JPanel();
+        panelSur = new JPanel();
         
-        JPanel panelBinario = new JPanel();
-        JPanel panelOctal = new JPanel();
-        JPanel panelHexadecimal = new JPanel();
-        
-        //panelNorte.setSize(210, 80);
-        //panelNorte.setBackground(Color.BLUE);
+        panelBinario = new JPanel();
+        panelOctal = new JPanel();
+        panelHexadecimal = new JPanel();
         
         //panelBinario.setSize(210, 80);
-        //panelBinario.setLayout(new BorderLayout());
-        panelBinario.setBackground(Color.BLUE);
-        //panelBinario.setAlignmentY(CENTER_ALIGNMENT);
-        //panelOctal.setSize(210, 80);
-        panelOctal.setBackground(Color.PINK);
-        //panelHexadecimal.setSize(210, 80);
-        panelHexadecimal.setBackground(Color.ORANGE);
+        //panelBinario.setBackground(Color.BLUE);
+        panelBinario.setAlignmentY(CENTER_ALIGNMENT);
+        //panelOctal.setBackground(Color.PINK);
+        //panelHexadecimal.setBackground(Color.ORANGE);
         
         panelCentro.setLayout(new GridLayout(3, 2));
+        panelCentro.setAlignmentY(CENTER_ALIGNMENT);
         
-        JLabel etiquetaDecimal = new JLabel("Numero Decimal: ");
+        etiquetaDecimal = new JLabel("Numero Decimal: ");
         
-        JTextField decimal = new JTextField();
+        decimal = new JTextField();
         
-        JTextField binario = new JTextField();
-        JTextField octal = new JTextField();
-        JTextField hexa = new JTextField();
+        binario = new JTextField();
+        binario.setEditable(false);
+        octal = new JTextField();
+        octal.setEditable(false);
+        hexa = new JTextField();
+        hexa.setEditable(false);
         
-        JCheckBox checkBinario = new JCheckBox("binario");
-        JCheckBox checkOctal = new JCheckBox("octal");
-        JCheckBox checkHexa = new JCheckBox("hexadecimal");
+        checkBinario = new JCheckBox("binario");
+        checkOctal = new JCheckBox("octal");
+        checkHexa = new JCheckBox("hexadecimal");
+        
+        JButton botonCalcular = new JButton("Calcular");
+        botonCalcular.addActionListener(this);
         
         Dimension tamanoTexto = new Dimension(100, 20);
         Dimension maximoTexto = new Dimension(110, 25);
         
-        //decimal.setSize(100, 40);
         decimal.setPreferredSize(tamanoTexto);
-        //decimal.setMinimumSize(tamanoTexto);
-        //decimal.setAlignmentX(CENTER_ALIGNMENT);
-        //decimal.setLocation(0, 0);
         
         binario.setPreferredSize(tamanoTexto);
         binario.setMinimumSize(tamanoTexto);
         binario.setMaximumSize(maximoTexto);
-        //binario.setSize(100, 20);
-        //binario.setBounds(0, 0, 100, 20);
-        //binario.setHorizontalAlignment(JTextField.CENTER);
-        //binario.setAlignmentY(CENTER_ALIGNMENT);
-        binario.setLocation(0, 80);
+        
         octal.setPreferredSize(tamanoTexto);
         hexa.setPreferredSize(tamanoTexto);
         
@@ -103,14 +118,38 @@ public class Ventana extends JFrame{
         binario.revalidate();
         binario.repaint();*/
         
-        System.out.println(binario.getAlignmentY());
+        panelSur.add(botonCalcular);
+        
+        //System.out.println(binario.getAlignmentY());
         
         this.add(panelNorte, BorderLayout.NORTH);
         this.add(panelCentro, BorderLayout.CENTER);
+        this.add(panelSur, BorderLayout.SOUTH);
         
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         
         setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (!this.decimal.getText().isEmpty()) {
+            
+            if (checkBinario.isSelected()) {
+                binario.setText(Integer.toBinaryString(Integer.parseInt(decimal.getText())));
+            }
+
+            if (checkOctal.isSelected()) {
+                octal.setText(Integer.toOctalString(Integer.parseInt(decimal.getText())));
+            }
+
+            if (checkHexa.isSelected()) {
+                hexa.setText(Integer.toHexString(Integer.parseInt(decimal.getText())));
+            }
+        
+        }
+        
     }
     
 }
