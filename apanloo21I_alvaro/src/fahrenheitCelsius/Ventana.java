@@ -1,6 +1,5 @@
 package fahrenheitCelsius;
 
-import java.awt.GraphicsConfiguration;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
@@ -12,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+@SuppressWarnings("serial")
 public class Ventana extends JFrame implements ActionListener {
 	
 	public double factorConversion;
